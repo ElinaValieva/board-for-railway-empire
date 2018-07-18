@@ -1,0 +1,73 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+>
+<h:head>
+    <title>First JSF Application</title>
+    <h:outputStylesheet name="css/test.css"/>
+    <h:outputStylesheet name="css/bootstrap.min.css"/>
+</h:head>
+
+<h:body styleClass="badge-dark">
+    <div class="row">
+        <div class="col">
+            <h4 class="text-warning text-center">DEPARTURE</h4>
+            <h:dataTable value="#{scheduleBeanTest.schedules}" var="schedule" styleClass="table table-dark text-warning"
+                         style="margin-left: 2%">
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="Train"/>
+                    </f:facet>
+                    <h:outputText value="#{schedule.trainName}"/>
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="Time"/>
+                    </f:facet>
+                    <h:outputText value="#{schedule.time}"/>
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="Station"/>
+                    </f:facet>
+                    <h:outputText value="#{schedule.station}"/>
+                </h:column>
+
+            </h:dataTable>
+        </div>
+        <div class="col">
+            <h4 class="text-warning text-center">ARRIVAL</h4>
+            <h:dataTable value="#{scheduleBeanTest.schedules}" var="schedule" styleClass="table table-dark text-warning"
+                         style="margin-right: 2%">
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="Train"/>
+                    </f:facet>
+                    <h:outputText value="#{schedule.trainName}"/>
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="Time"/>
+                    </f:facet>
+                    <h:outputText value="#{schedule.time}"/>
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="Station"/>
+                    </f:facet>
+                    <h:outputText value="#{schedule.station}"/>
+                </h:column>
+
+            </h:dataTable>
+        </div>
+    </div>
+
+</h:body>
+</html>
