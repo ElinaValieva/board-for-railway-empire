@@ -3,14 +3,26 @@
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core"
->
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+
 <h:head>
     <title>First JSF Application</title>
     <h:outputStylesheet name="css/bootstrap.min.css"/>
 </h:head>
 
 <h:body styleClass="badge-dark">
+    <h:form style="margin-left: 10%">
+        <p:outputLabel for="menu"/>
+        <br/>
+        <p:selectOneMenu id="menu" value="#{scheduleBean.selectedItem}">
+            <f:selectItems value="#{scheduleBean.getStations()}"/>
+        </p:selectOneMenu>
+    </h:form>
+    <br/>
+    <h1>STATION: #{scheduleBean.getSelectedItem()}</h1>
+    <h1>STATION: #{scheduleBean.selectedItem}</h1>
+
     <div class="row">
         <div class="col">
             <h4 class="text-warning text-center">DEPARTURE</h4>

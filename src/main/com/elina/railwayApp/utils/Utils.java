@@ -6,7 +6,9 @@ import java.util.Date;
 
 public class Utils {
 
-    public static final String URL = "http://localhost:8000/schedule/all";
+    public static final String URL_SCHEDULES = "http://localhost:8000/schedule/all";
+    public static final String URL_STATIONS = "http://localhost:8000/station/auto/stations";
+
 
     public static String parseToTime(String date) throws ParseException {
         Date dateToday = parseToDateTime(date);

@@ -19,11 +19,22 @@ public class Loader {
 
         Client client = new Client();
         ObjectMapper objectMapper = new ObjectMapper();
-        WebResource webResource = client.resource(Utils.URL);
+        WebResource webResource = client.resource(Utils.URL_SCHEDULES);
         ClientResponse clientResponse = webResource.accept(MediaType.APPLICATION_JSON).get(ClientResponse.class);
         String response = clientResponse.getEntity(String.class);
         List<Schedule> schedules = objectMapper.readValue(response, new TypeReference<List<Schedule>>() {
         });
         return schedules;
+    }
+
+    public static List<String> getStations() throws IOException {
+        Client client = new Client();
+        ObjectMapper objectMapper = new ObjectMapper();
+        WebResource webResource = client.resource(Utils.URL_STATIONS);
+        ClientResponse clientResponse = webResource.accept(MediaType.APPLICATION_JSON).get(ClientResponse.class);
+        String response = clientResponse.getEntity(String.class);
+        List<String> stations = objectMapper.readValue(response, new TypeReference<List<String>>() {
+        });
+        return stations;
     }
 }
