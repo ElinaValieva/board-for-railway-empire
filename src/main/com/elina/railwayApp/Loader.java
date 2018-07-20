@@ -15,7 +15,7 @@ import java.util.List;
 public class Loader {
 
 
-    public List<Schedule> getSchedules() throws IOException {
+    public static List<Schedule> getSchedules() throws IOException {
 
         Client client = new Client();
         ObjectMapper objectMapper = new ObjectMapper();

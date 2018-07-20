@@ -14,54 +14,56 @@
     <div class="row">
         <div class="col">
             <h4 class="text-warning text-center">DEPARTURE</h4>
-            <h:dataTable value="#{scheduleBeanTest.schedules}" var="schedule" styleClass="table table-dark text-warning"
+            <h:dataTable value="#{scheduleBean.schedulesDeparture}" var="schedule"
+                         styleClass="table table-dark text-warning"
                          style="margin-left: 2%">
                 <h:column>
                     <f:facet name="header">
                         <h:outputText value="Train"/>
                     </f:facet>
-                    <h:outputText value="#{schedule.trainName}"/>
+                    <h:outputText value="#{schedule.train}"/>
                 </h:column>
 
                 <h:column>
                     <f:facet name="header">
                         <h:outputText value="Time"/>
                     </f:facet>
-                    <h:outputText value="#{schedule.dateArrival}"/>
+                    <h:outputText value="#{schedule.time}"/>
                 </h:column>
 
                 <h:column>
                     <f:facet name="header">
                         <h:outputText value="Station"/>
                     </f:facet>
-                    <h:outputText value="#{schedule.stationArrivalName}"/>
+                    <h:outputText value="#{schedule.station}"/>
                 </h:column>
 
             </h:dataTable>
         </div>
         <div class="col">
             <h4 class="text-warning text-center">ARRIVAL</h4>
-            <h:dataTable value="#{scheduleBeanTest.schedules}" var="schedule" styleClass="table table-dark text-warning"
+            <h:dataTable value="#{scheduleBean.schedulesArrival}" var="schedule"
+                         styleClass="table table-dark text-warning"
                          style="margin-right: 2%">
                 <h:column>
                     <f:facet name="header">
                         <h:outputText value="Train"/>
                     </f:facet>
-                    <h:outputText value="#{schedule.trainName}"/>
+                    <h:outputText value="#{schedule.train}"/>
                 </h:column>
 
                 <h:column>
                     <f:facet name="header">
                         <h:outputText value="Time"/>
                     </f:facet>
-                    <h:outputText value="#{schedule.dateDeparture}"/>
+                    <h:outputText value="#{schedule.time}"/>
                 </h:column>
 
                 <h:column>
                     <f:facet name="header">
                         <h:outputText value="Station"/>
                     </f:facet>
-                    <h:outputText value="#{schedule.stationArrivalName}"/>
+                    <h:outputText value="#{schedule.station}"/>
                 </h:column>
 
             </h:dataTable>
