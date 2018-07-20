@@ -10,25 +10,27 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
+import javax.faces.event.AjaxBehaviorEvent;
 import java.io.IOException;
 import java.util.List;
 
 @ManagedBean
 @SessionScoped
 public class ScheduleBean {
+    private List<Schedule> schedules;
     private List<TimeSchedule> schedulesDeparture;
     private List<TimeSchedule> schedulesArrival;
-    private String mainSchedule = "Ufa";
     private List<String> stations;
-    private String selectedItem;
+    private String selectedItem = "Saint Petersburg";
 
     public String getSelectedItem() {
-        System.out.println(selectedItem);
+        schedulesDeparture = Converter.conventDeparture(selectedItem, schedules);
+        schedulesArrival = Converter.convertArrival(selectedItem, schedules);
+        System.out.println("calc");
         return selectedItem;
     }
 
     public void setSelectedItem(String selectedItem) {
-        System.out.println("set "+ selectedItem);
         this.selectedItem = selectedItem;
     }
 
@@ -39,9 +41,9 @@ public class ScheduleBean {
 
     @PostConstruct
     private void init() throws IOException {
-        List<Schedule> schedules = Loader.getSchedules();
-        schedulesDeparture = Converter.conventDeparture(mainSchedule, schedules);
-        schedulesArrival = Converter.convertArrival(mainSchedule, schedules);
+        schedules = Loader.getSchedules();
+        schedulesDeparture = Converter.conventDeparture(selectedItem, schedules);
+        schedulesArrival = Converter.convertArrival(selectedItem, schedules);
     }
 
     public List<TimeSchedule> getSchedulesDeparture() {
