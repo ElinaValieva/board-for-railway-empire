@@ -7,7 +7,6 @@
 >
 <h:head>
     <title>First JSF Application</title>
-    <h:outputStylesheet name="css/test.css"/>
     <h:outputStylesheet name="css/bootstrap.min.css"/>
 </h:head>
 
@@ -28,14 +27,14 @@
                     <f:facet name="header">
                         <h:outputText value="Time"/>
                     </f:facet>
-                    <h:outputText value="#{schedule.time}"/>
+                    <h:outputText value="#{schedule.dateArrival}"/>
                 </h:column>
 
                 <h:column>
                     <f:facet name="header">
                         <h:outputText value="Station"/>
                     </f:facet>
-                    <h:outputText value="#{schedule.station}"/>
+                    <h:outputText value="#{schedule.stationArrivalName}"/>
                 </h:column>
 
             </h:dataTable>
@@ -55,14 +54,14 @@
                     <f:facet name="header">
                         <h:outputText value="Time"/>
                     </f:facet>
-                    <h:outputText value="#{schedule.time}"/>
+                    <h:outputText value="#{schedule.dateDeparture}"/>
                 </h:column>
 
                 <h:column>
                     <f:facet name="header">
                         <h:outputText value="Station"/>
                     </f:facet>
-                    <h:outputText value="#{schedule.station}"/>
+                    <h:outputText value="#{schedule.stationArrivalName}"/>
                 </h:column>
 
             </h:dataTable>
