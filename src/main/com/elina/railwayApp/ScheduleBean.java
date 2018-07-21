@@ -2,15 +2,10 @@ package elina.railwayApp;
 
 import elina.railwayApp.model.Schedule;
 import elina.railwayApp.model.TimeSchedule;
-import lombok.Getter;
-import lombok.Setter;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
-import javax.faces.bean.ViewScoped;
-import javax.faces.event.AjaxBehaviorEvent;
 import java.io.IOException;
 import java.util.List;
 
@@ -24,14 +19,13 @@ public class ScheduleBean {
     private String selectedItem = "Saint Petersburg";
 
     public String getSelectedItem() {
-        schedulesDeparture = Converter.conventDeparture(selectedItem, schedules);
-        schedulesArrival = Converter.convertArrival(selectedItem, schedules);
-        System.out.println("calc");
         return selectedItem;
     }
 
     public void setSelectedItem(String selectedItem) {
         this.selectedItem = selectedItem;
+        schedulesDeparture = Converter.conventDeparture(selectedItem, schedules);
+        schedulesArrival = Converter.convertArrival(selectedItem, schedules);
     }
 
     public List<String> getStations() throws IOException {

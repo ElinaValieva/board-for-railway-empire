@@ -26,7 +26,7 @@ public class Converter {
                     try {
                         timeSchedule.setTime(Utils.parseToTime(x.getDateArrival()));
                     } catch (ParseException e) {
-                        e.printStackTrace();
+                        timeSchedule.setTime("not information");
                     }
                     return timeSchedule;
                 }).collect(Collectors.toList());
@@ -48,7 +48,7 @@ public class Converter {
                     try {
                         timeSchedule.setTime(Utils.parseToTime(x.getDateDeparture()));
                     } catch (ParseException e) {
-                        e.printStackTrace();
+                        timeSchedule.setTime("not information");
                     }
                     return timeSchedule;
                 }).collect(Collectors.toList());
