@@ -2,10 +2,12 @@ package elina.railwayApp;
 
 
 import com.rabbitmq.client.*;
+import lombok.extern.log4j.Log4j;
 
 import java.io.IOException;
 import java.util.concurrent.TimeoutException;
 
+@Log4j
 public class Listener {
 
     private static final String EXCHANGE_NAME = "messages";
@@ -26,7 +28,7 @@ public class Listener {
             public void handleDelivery(String consumerTag, Envelope envelope, AMQP.BasicProperties properties, byte[] body)
                     throws IOException {
                 String message = new String(body, "UTF-8");
-                System.out.println(" [x] Received '" + message + "'");
+                log.info(" [x] Received '" + message + "'");
             }
         };
 
