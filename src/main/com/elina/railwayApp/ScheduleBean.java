@@ -41,7 +41,7 @@ public class ScheduleBean {
         schedulesArrival = Converter.convertArrival(selectedItem, schedules);
     }
 
-    public List<String> getStations() throws IOException {
+    public List<String> getStations() {
         stations = Loader.getStations();
         return stations;
     }

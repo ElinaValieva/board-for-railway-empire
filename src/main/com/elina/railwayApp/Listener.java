@@ -18,7 +18,6 @@ public class Listener {
     public void start() throws IOException, TimeoutException {
         ConnectionFactory connectionFactory = new ConnectionFactory();
         connectionFactory.setHost("localhost");
-
         connection = connectionFactory.newConnection();
         channel = connection.createChannel();
         channel.queueDeclare(EXCHANGE_NAME, false, false, false, null);
@@ -29,9 +28,13 @@ public class Listener {
                     throws IOException {
                 String message = new String(body, "UTF-8");
                 log.info(" [x] Received '" + message + "'");
+                if (message.contains("create") || message.contains("delete") || message.contains("update")) {
+                    //TODO get id in message (it's for test)
+                    Long id = Long.valueOf(message.substring(8, 12));
+                    log.info(message + id);
+                }
             }
         };
-
         channel.basicConsume(EXCHANGE_NAME, true, consumer);
     }
 
