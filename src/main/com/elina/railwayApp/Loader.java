@@ -42,7 +42,7 @@ public class Loader {
         String response = clientResponse.getEntity(String.class);
         Schedule schedule = null;
         try {
-            schedule = objectMapper.readValue(response, new TypeReference<List<Schedule>>() {
+            schedule = objectMapper.readValue(response, new TypeReference<Schedule>() {
             });
         } catch (IOException e) {
             log.error("ERROR, CAN'T LOAD SCHEDULE BY ID " + e.getMessage());

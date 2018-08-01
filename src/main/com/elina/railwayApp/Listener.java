@@ -14,6 +14,7 @@ public class Listener {
 
     private Channel channel;
     private Connection connection;
+    private DataManager dataManager = DataManager.getInstance();
 
     public void start() throws IOException, TimeoutException {
         ConnectionFactory connectionFactory = new ConnectionFactory();
@@ -29,9 +30,9 @@ public class Listener {
                 String message = new String(body, "UTF-8");
                 log.info(" [x] Received '" + message + "'");
                 if (message.contains("create") || message.contains("delete") || message.contains("update")) {
-                    //TODO get id in message (it's for test)
-                    Long id = Long.valueOf(message.substring(8, 12));
-                    log.info(message + id);
+                    Long id = getMessageInfo(message);
+                    log.info("ID = " + getMessageInfo(message));
+                    dataManager.changeState(message, id);
                 }
             }
         };
@@ -41,6 +42,13 @@ public class Listener {
     public void stop() throws IOException, TimeoutException {
         channel.close();
         connection.close();
+    }
+
+    public Long getMessageInfo(String message) {
+        if (message.contains("create") || message.contains("update") || message.contains("delete")) {
+            return Long.valueOf(message.substring(message.indexOf("id=")).replace("id=", ""));
+        }
+        return null;
     }
 
 }

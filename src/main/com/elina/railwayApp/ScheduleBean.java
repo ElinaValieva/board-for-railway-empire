@@ -1,12 +1,13 @@
 package elina.railwayApp;
 
-import elina.railwayApp.model.Schedule;
 import elina.railwayApp.model.TimeSchedule;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.extern.log4j.Log4j;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
+import javax.ejb.Schedule;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import java.io.IOException;
@@ -15,8 +16,10 @@ import java.util.concurrent.TimeoutException;
 
 @ManagedBean
 @SessionScoped
+@Log4j
 public class ScheduleBean {
-    private List<Schedule> schedules;
+
+    private DataManager dataManager = DataManager.getInstance();
 
     @Getter
     @Setter
@@ -27,7 +30,10 @@ public class ScheduleBean {
     private List<TimeSchedule> schedulesArrival;
 
 
-    private List<String> stations;
+    @Getter
+    @Setter
+    private List<String> stations = Loader.getStations();
+
     private String selectedItem = "Saint Petersburg";
     private Listener listener = new Listener();
 
@@ -35,23 +41,25 @@ public class ScheduleBean {
         return selectedItem;
     }
 
+
     public void setSelectedItem(String selectedItem) {
         this.selectedItem = selectedItem;
-        schedulesDeparture = Converter.conventDeparture(selectedItem, schedules);
-        schedulesArrival = Converter.convertArrival(selectedItem, schedules);
+        schedulesDeparture = dataManager.updateScheduleDeparture(selectedItem);
+        schedulesArrival = dataManager.updateScheduleArrival(selectedItem);
     }
 
-    public List<String> getStations() {
-        stations = Loader.getStations();
-        return stations;
+    @Schedule(second = "*/60", minute = "*", hour = "*", persistent = false)
+    public void updateState() {
+        schedulesDeparture = dataManager.updateScheduleDeparture(selectedItem);
+        schedulesArrival = dataManager.updateScheduleArrival(selectedItem);
+        log.info("update @schedule ... ");
     }
 
     @PostConstruct
     private void init() throws IOException, TimeoutException {
         listener.start();
-        schedules = Loader.getSchedules();
-        schedulesDeparture = Converter.conventDeparture(selectedItem, schedules);
-        schedulesArrival = Converter.convertArrival(selectedItem, schedules);
+        schedulesDeparture = dataManager.createScheduleDeparture(selectedItem);
+        schedulesArrival = dataManager.createScheduleArrival(selectedItem);
     }
 
     @PreDestroy
