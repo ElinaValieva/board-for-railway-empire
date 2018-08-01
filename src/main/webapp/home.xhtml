@@ -9,17 +9,21 @@
 <h:head>
     <title>First JSF Application</title>
     <h:outputStylesheet name="css/bootstrap.min.css"/>
+    <h:outputStylesheet name="css/style.css"/>
 </h:head>
 
-<h:body styleClass="badge-dark">
-    <h:form style="margin-left: 10%">
-        <p:outputLabel for="menu"/>
-        <br/>
-        <p:selectOneMenu id="menu" value="#{scheduleBean.selectedItem}">
+<h:body>
+    <h:form>
+        <h:outputLabel styleClass="text-warning font-weight-bold">STATION: </h:outputLabel>
+        <p:selectOneMenu value="#{scheduleBean.selectedItem}">
             <f:selectItems value="#{scheduleBean.getStations()}"/>
             <p:ajax update="resultDeparture"/>
             <p:ajax update="resultArrival"/>
         </p:selectOneMenu>
+        <h:inputText id = "dateInput" value = "22-06-2018"
+                     label = "Date" >
+            <f:convertDateTime pattern = "dd-mm-yyyy" />
+        </h:inputText>
     </h:form>
     <br/>
     <div class="row">
@@ -51,6 +55,7 @@
 
             </h:dataTable>
         </div>
+        <div class="col-1"></div>
         <div class="col">
             <h4 class="text-warning text-center">ARRIVAL</h4>
             <h:dataTable id="resultArrival" value="#{scheduleBean.schedulesArrival}" var="schedule"

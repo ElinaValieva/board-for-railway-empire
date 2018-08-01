@@ -8,6 +8,7 @@ import lombok.extern.log4j.Log4j;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.ejb.Schedule;
+import javax.ejb.Singleton;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import java.io.IOException;
@@ -15,6 +16,7 @@ import java.util.List;
 import java.util.concurrent.TimeoutException;
 
 @ManagedBean
+@Singleton
 @SessionScoped
 @Log4j
 public class ScheduleBean {
