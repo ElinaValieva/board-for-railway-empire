@@ -11,19 +11,20 @@
     <h:outputStylesheet name="css/bootstrap.min.css"/>
     <h:outputStylesheet name="css/style.css"/>
 </h:head>
-
 <h:body>
     <h:form>
-        <h:outputLabel styleClass="text-warning font-weight-bold">STATION: </h:outputLabel>
-        <p:selectOneMenu value="#{scheduleBean.selectedItem}">
-            <f:selectItems value="#{scheduleBean.getStations()}"/>
-            <p:ajax update="resultDeparture"/>
-            <p:ajax update="resultArrival"/>
-        </p:selectOneMenu>
-        <h:inputText id = "dateInput" value = "22-06-2018"
-                     label = "Date" >
-            <f:convertDateTime pattern = "dd-mm-yyyy" />
-        </h:inputText>
+        <div class="row align-items-center">
+            <div class="col-2 text-center">
+                <h:outputLabel styleClass="text-warning font-weight-bold">STATION: </h:outputLabel>
+            </div>
+            <div class="col">
+                <p:selectOneMenu value="#{scheduleBean.selectedItem}" style="width: 400px">
+                    <f:selectItems value="#{scheduleBean.getStations()}"/>
+                    <p:ajax update="resultDeparture"/>
+                    <p:ajax update="resultArrival"/>
+                </p:selectOneMenu>
+            </div>
+        </div>
     </h:form>
     <br/>
     <div class="row">
@@ -85,6 +86,9 @@
             </h:dataTable>
         </div>
     </div>
-
+    <div>
+        <label>CHANGES FOR LAST MINUTE</label>
+        <h:outputText value="#{scheduleBean.lastChangesInfo}" styleClass="text-warning"></h:outputText>
+    </div>
 </h:body>
 </html>
