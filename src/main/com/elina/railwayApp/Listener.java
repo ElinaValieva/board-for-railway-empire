@@ -32,6 +32,7 @@ public class Listener {
                 if (message.contains("create") || message.contains("delete") || message.contains("update")) {
                     Long id = getMessageInfo(message);
                     log.info("ID = " + getMessageInfo(message));
+                    dataManager.resetStatusChanges();
                     dataManager.changeState(message, id);
                 }
             }

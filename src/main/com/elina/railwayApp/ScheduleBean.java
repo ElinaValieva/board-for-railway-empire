@@ -22,6 +22,8 @@ import java.util.concurrent.TimeoutException;
 public class ScheduleBean {
 
     private DataManager dataManager = DataManager.getInstance();
+    private Listener listener = new Listener();
+
 
     @Getter
     @Setter
@@ -36,13 +38,11 @@ public class ScheduleBean {
     @Setter
     private List<String> stations = Loader.getStations();
 
+    @Getter
     private String selectedItem = "Saint Petersburg";
-    private Listener listener = new Listener();
 
-    public String getSelectedItem() {
-        return selectedItem;
-    }
-
+    @Getter
+    private String lastChangesInfo;
 
     public void setSelectedItem(String selectedItem) {
         this.selectedItem = selectedItem;
@@ -52,9 +52,13 @@ public class ScheduleBean {
 
     @Schedule(second = "*/60", minute = "*", hour = "*", persistent = false)
     public void updateState() {
-        schedulesDeparture = dataManager.updateScheduleDeparture(selectedItem);
-        schedulesArrival = dataManager.updateScheduleArrival(selectedItem);
-        log.info("update @schedule ... ");
+        if (dataManager.getStatusChanges()) {
+            lastChangesInfo = dataManager.getLastInfoChanges();
+            schedulesDeparture = dataManager.updateScheduleDeparture(selectedItem);
+            schedulesArrival = dataManager.updateScheduleArrival(selectedItem);
+            log.info("update @schedule ... ");
+            dataManager.resetStatusChanges();
+        }
     }
 
     @PostConstruct

@@ -15,6 +15,10 @@ public class DataManager {
 
     private String selectedItem;
 
+    private static boolean CHANGE_VALUES_FLAG = false;
+
+    private static String LAST_CHANGE_MESSAGE = null;
+
     @Getter
     @Setter
     private List<TimeSchedule> schedulesDeparture;
@@ -42,6 +46,8 @@ public class DataManager {
         schedules.stream().filter(x -> x.getId().equals(id)).map(x -> x = schedule);
         schedulesDeparture = Converter.conventDeparture(selectedItem, schedules);
         schedulesArrival = Converter.convertArrival(selectedItem, schedules);
+        LAST_CHANGE_MESSAGE = LAST_CHANGE_MESSAGE + "/n"
+                + " update schedule between stations " + schedule.getStationArrivalName() + " - " + schedule.getStationDepartureName();
     }
 
     private void delete(Long id) {
@@ -49,6 +55,8 @@ public class DataManager {
         schedules.remove(schedule);
         schedulesDeparture = Converter.conventDeparture(selectedItem, schedules);
         schedulesArrival = Converter.convertArrival(selectedItem, schedules);
+        LAST_CHANGE_MESSAGE = LAST_CHANGE_MESSAGE + "/n"
+                + " delete schedule between stations " + schedule.getStationArrivalName() + " - " + schedule.getStationDepartureName();
     }
 
     private void add(Long id) {
@@ -56,6 +64,9 @@ public class DataManager {
         schedules.add(schedule);
         schedulesDeparture = Converter.conventDeparture(selectedItem, schedules);
         schedulesArrival = Converter.convertArrival(selectedItem, schedules);
+        LAST_CHANGE_MESSAGE = LAST_CHANGE_MESSAGE + "/n"
+                + " create new schedule between stations " + schedule.getStationArrivalName() + " - " + schedule.getStationDepartureName();
+        log.info("UPDATE" + schedules.size());
     }
 
     public void changeState(String message, Long id) {
@@ -69,11 +80,27 @@ public class DataManager {
     }
 
     public List<TimeSchedule> createScheduleArrival(String selectedItem) {
+        log.info("LOAD" + schedules.size());
         schedulesArrival = Converter.convertArrival(selectedItem, schedules);
         return schedulesArrival;
     }
 
     public static DataManager getInstance() {
         return new DataManager();
+    }
+
+    public static boolean getStatusChanges() {
+        return CHANGE_VALUES_FLAG;
+    }
+
+    public static void resetStatusChanges() {
+        if (CHANGE_VALUES_FLAG) {
+            CHANGE_VALUES_FLAG = false;
+            LAST_CHANGE_MESSAGE = null;
+        } else CHANGE_VALUES_FLAG = true;
+    }
+
+    public static String getLastInfoChanges() {
+        return LAST_CHANGE_MESSAGE;
     }
 }
