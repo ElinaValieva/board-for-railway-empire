@@ -2,8 +2,6 @@ package elina.railwayApp;
 
 import elina.railwayApp.model.Schedule;
 import elina.railwayApp.model.TimeSchedule;
-import lombok.Getter;
-import lombok.Setter;
 import lombok.extern.log4j.Log4j;
 
 import java.util.List;
@@ -14,29 +12,19 @@ public class DataManager {
 
     private static DataManager dataManager;
 
-    private String name;
-
-    @Getter
     public List<Schedule> schedules = Loader.getSchedules();
 
     private boolean CHANGE_VALUES_FLAG = false;
 
     private String LAST_CHANGE_MESSAGE = "";
 
-    @Getter
-    @Setter
-    private List<TimeSchedule> schedulesDeparture;
-
-    @Getter
-    @Setter
-    private List<TimeSchedule> schedulesArrival;
 
     public List<TimeSchedule> loadScheduleDeparture(String selectedItem) {
-        return schedulesDeparture = Converter.conventDeparture(selectedItem, schedules);
+        return Converter.conventDeparture(selectedItem, schedules);
     }
 
     public List<TimeSchedule> loadScheduleArrival(String selectedItem) {
-        return schedulesArrival = Converter.convertArrival(selectedItem, schedules);
+        return Converter.convertArrival(selectedItem, schedules);
     }
 
     public List<Schedule> changeState() {
