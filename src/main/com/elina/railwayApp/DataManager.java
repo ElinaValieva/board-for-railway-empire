@@ -17,7 +17,7 @@ public class DataManager {
 
     private static boolean CHANGE_VALUES_FLAG = false;
 
-    private static String LAST_CHANGE_MESSAGE = null;
+    private static String LAST_CHANGE_MESSAGE = "";
 
     @Getter
     @Setter
@@ -46,7 +46,7 @@ public class DataManager {
         schedules.stream().filter(x -> x.getId().equals(id)).map(x -> x = schedule);
         schedulesDeparture = Converter.conventDeparture(selectedItem, schedules);
         schedulesArrival = Converter.convertArrival(selectedItem, schedules);
-        LAST_CHANGE_MESSAGE = LAST_CHANGE_MESSAGE + "/n"
+        LAST_CHANGE_MESSAGE = LAST_CHANGE_MESSAGE + "\n"
                 + " update schedule between stations " + schedule.getStationArrivalName() + " - " + schedule.getStationDepartureName();
     }
 
@@ -55,7 +55,7 @@ public class DataManager {
         schedules.remove(schedule);
         schedulesDeparture = Converter.conventDeparture(selectedItem, schedules);
         schedulesArrival = Converter.convertArrival(selectedItem, schedules);
-        LAST_CHANGE_MESSAGE = LAST_CHANGE_MESSAGE + "/n"
+        LAST_CHANGE_MESSAGE = LAST_CHANGE_MESSAGE + "\n"
                 + " delete schedule between stations " + schedule.getStationArrivalName() + " - " + schedule.getStationDepartureName();
     }
 
@@ -64,7 +64,7 @@ public class DataManager {
         schedules.add(schedule);
         schedulesDeparture = Converter.conventDeparture(selectedItem, schedules);
         schedulesArrival = Converter.convertArrival(selectedItem, schedules);
-        LAST_CHANGE_MESSAGE = LAST_CHANGE_MESSAGE + "/n"
+        LAST_CHANGE_MESSAGE = LAST_CHANGE_MESSAGE + "\n"
                 + " create new schedule between stations " + schedule.getStationArrivalName() + " - " + schedule.getStationDepartureName();
         log.info("UPDATE" + schedules.size());
     }
@@ -96,7 +96,7 @@ public class DataManager {
     public static void resetStatusChanges() {
         if (CHANGE_VALUES_FLAG) {
             CHANGE_VALUES_FLAG = false;
-            LAST_CHANGE_MESSAGE = null;
+            LAST_CHANGE_MESSAGE = "";
         } else CHANGE_VALUES_FLAG = true;
     }
 

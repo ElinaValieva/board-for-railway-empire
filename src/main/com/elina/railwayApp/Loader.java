@@ -42,6 +42,7 @@ public class Loader {
         String response = clientResponse.getEntity(String.class);
         Schedule schedule = null;
         try {
+            log.info(response);
             schedule = objectMapper.readValue(response, new TypeReference<Schedule>() {
             });
         } catch (IOException e) {
