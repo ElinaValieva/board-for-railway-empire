@@ -30,10 +30,10 @@ public class Listener {
                 String message = new String(body, "UTF-8");
                 log.info(" [x] Received '" + message + "'");
                 if (message.contains("create") || message.contains("delete") || message.contains("update")) {
-                    Long id = getMessageInfo(message);
-                    log.info("ID = " + getMessageInfo(message));
-                    dataManager.resetStatusChanges();
-                    dataManager.changeState(message, id);
+                    log.info(message);
+                    dataManager.setLastInfoChanges(message);
+                    dataManager.changeState();
+                    dataManager.upStatusChanges();
                 }
             }
         };
@@ -43,13 +43,6 @@ public class Listener {
     public void stop() throws IOException, TimeoutException {
         channel.close();
         connection.close();
-    }
-
-    public Long getMessageInfo(String message) {
-        if (message.contains("create") || message.contains("update") || message.contains("delete")) {
-            return Long.valueOf(message.substring(message.indexOf("id=")).replace("id=", ""));
-        }
-        return null;
     }
 
 }

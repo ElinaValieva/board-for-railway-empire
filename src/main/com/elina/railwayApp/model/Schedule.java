@@ -11,7 +11,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 public class Schedule implements Serializable {
 
-    private Integer id;
+    private Long id;
     private String stationDepartureName;
     private String stationArrivalName;
     private String trainName;

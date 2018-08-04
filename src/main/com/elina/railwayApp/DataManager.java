@@ -7,17 +7,21 @@ import lombok.Setter;
 import lombok.extern.log4j.Log4j;
 
 import java.util.List;
+import java.util.Optional;
 
 @Log4j
 public class DataManager {
 
-    private List<Schedule> schedules = Loader.getSchedules();
+    private static DataManager dataManager;
 
-    private String selectedItem;
+    private String name;
 
-    private static boolean CHANGE_VALUES_FLAG = false;
+    @Getter
+    public List<Schedule> schedules = Loader.getSchedules();
 
-    private static String LAST_CHANGE_MESSAGE = "";
+    private boolean CHANGE_VALUES_FLAG = false;
+
+    private String LAST_CHANGE_MESSAGE = "";
 
     @Getter
     @Setter
@@ -27,80 +31,52 @@ public class DataManager {
     @Setter
     private List<TimeSchedule> schedulesArrival;
 
-    public List<TimeSchedule> updateScheduleDeparture(String selectedItem) {
-        this.selectedItem = selectedItem;
+    public List<TimeSchedule> loadScheduleDeparture(String selectedItem) {
         return schedulesDeparture = Converter.conventDeparture(selectedItem, schedules);
     }
 
-    public List<TimeSchedule> updateScheduleArrival(String selectedItem) {
-        this.selectedItem = selectedItem;
+    public List<TimeSchedule> loadScheduleArrival(String selectedItem) {
         return schedulesArrival = Converter.convertArrival(selectedItem, schedules);
     }
 
-    public List<TimeSchedule> createScheduleDeparture(String selectedItem) {
-        return schedulesDeparture = Converter.conventDeparture(selectedItem, schedules);
-    }
-
-    private void update(Long id) {
-        Schedule schedule = Loader.getById(id);
-        schedules.stream().filter(x -> x.getId().equals(id)).map(x -> x = schedule);
-        schedulesDeparture = Converter.conventDeparture(selectedItem, schedules);
-        schedulesArrival = Converter.convertArrival(selectedItem, schedules);
-        LAST_CHANGE_MESSAGE = LAST_CHANGE_MESSAGE + "\n"
-                + " update schedule between stations " + schedule.getStationArrivalName() + " - " + schedule.getStationDepartureName();
-    }
-
-    private void delete(Long id) {
-        Schedule schedule = Loader.getById(id);
-        schedules.remove(schedule);
-        schedulesDeparture = Converter.conventDeparture(selectedItem, schedules);
-        schedulesArrival = Converter.convertArrival(selectedItem, schedules);
-        LAST_CHANGE_MESSAGE = LAST_CHANGE_MESSAGE + "\n"
-                + " delete schedule between stations " + schedule.getStationArrivalName() + " - " + schedule.getStationDepartureName();
-    }
-
-    private void add(Long id) {
-        Schedule schedule = Loader.getById(id);
-        schedules.add(schedule);
-        schedulesDeparture = Converter.conventDeparture(selectedItem, schedules);
-        schedulesArrival = Converter.convertArrival(selectedItem, schedules);
-        LAST_CHANGE_MESSAGE = LAST_CHANGE_MESSAGE + "\n"
-                + " create new schedule between stations " + schedule.getStationArrivalName() + " - " + schedule.getStationDepartureName();
-        log.info("UPDATE" + schedules.size());
-    }
-
-    public void changeState(String message, Long id) {
-        if (message.contains("create"))
-            add(id);
-
-        else if (message.contains("delete"))
-            delete(id);
-
-        else update(id);
-    }
-
-    public List<TimeSchedule> createScheduleArrival(String selectedItem) {
-        log.info("LOAD" + schedules.size());
-        schedulesArrival = Converter.convertArrival(selectedItem, schedules);
-        return schedulesArrival;
+    public List<Schedule> changeState() {
+        return schedules = Loader.getSchedules();
     }
 
     public static DataManager getInstance() {
-        return new DataManager();
+        if (dataManager == null)
+            dataManager = new DataManager();
+        return dataManager;
     }
 
-    public static boolean getStatusChanges() {
+    public boolean getStatusChanges() {
         return CHANGE_VALUES_FLAG;
     }
 
-    public static void resetStatusChanges() {
-        if (CHANGE_VALUES_FLAG) {
-            CHANGE_VALUES_FLAG = false;
-            LAST_CHANGE_MESSAGE = "";
-        } else CHANGE_VALUES_FLAG = true;
+    public void resetStatusChanges() {
+        CHANGE_VALUES_FLAG = false;
+        LAST_CHANGE_MESSAGE = "";
     }
 
-    public static String getLastInfoChanges() {
+    public void upStatusChanges() {
+        CHANGE_VALUES_FLAG = true;
+    }
+
+    public String getLastInfoChanges() {
         return LAST_CHANGE_MESSAGE;
+    }
+
+    public void setLastInfoChanges(String message) {
+        LAST_CHANGE_MESSAGE = getMessageInfo(message);
+    }
+
+    public String getMessageInfo(String message) {
+        final Long id = Long.valueOf(message.substring(message.indexOf("id=")).replace("id=", ""));
+        Optional<Schedule> scheduleOptional = schedules.stream().filter(x -> x.getId().equals(id)).findFirst();
+        if (scheduleOptional.isPresent()) {
+            Schedule schedule = scheduleOptional.get();
+            return "schedule between " + schedule.getStationDepartureName() + " - " + schedule.getStationArrivalName() + " was updated";
+        }
+        return null;
     }
 }

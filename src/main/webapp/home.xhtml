@@ -11,10 +11,10 @@
     <h:outputStylesheet name="css/bootstrap.min.css"/>
     <h:outputStylesheet name="css/style.css"/>
 </h:head>
-<h:body style="background-image: url('images/bg.png')">
+<h:body>
     <h:form>
         <h:outputText id="last" value="#{scheduleBean.lastChangesInfo}" styleClass="text-warning"/>
-        <p:poll interval="60" listener="#{scheduleBean.update}" update="last"/>
+        <p:poll interval="10" listener="#{scheduleBean.update}" update="last"/>
         <br/>
         <p:selectOneMenu id="menu" value="#{scheduleBean.selectedItem}">
             <f:selectItems value="#{scheduleBean.getStations()}"/>
@@ -82,9 +82,4 @@
         </div>
     </div>
 </h:body>
-<h:outputScript>
-    setInterval(function (){
-        window.location.reload(false);
-    }, 60000);
-</h:outputScript>
 </html>
