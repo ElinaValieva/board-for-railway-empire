@@ -17,7 +17,7 @@ public class Converter {
      */
     public static List<TimeSchedule> conventDeparture(String stationMain, List<Schedule> schedules) {
         return schedules.stream()
-                .filter(schedule -> schedule.getStationArrivalName().equals(stationMain))
+                .filter(schedule -> schedule.getStationArrivalName().equals(stationMain) && Utils.checkScheduleForToday(schedule))
                 .map(x -> {
                     TimeSchedule timeSchedule = new TimeSchedule();
                     timeSchedule.setStation(x.getStationDepartureName());
