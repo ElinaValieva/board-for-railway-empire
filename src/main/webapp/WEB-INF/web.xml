@@ -12,6 +12,11 @@
         <welcome-file>faces/home.xhtml</welcome-file>
     </welcome-file-list>
 
+    <error-page>
+        <error-code>404</error-code>
+        <location>/error.xhtml</location>
+    </error-page>
+
     <servlet>
         <servlet-name>Faces Servlet</servlet-name>
         <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
@@ -42,9 +47,5 @@
         <param-name>com.sun.faces.enableRestoreView11Compatibility</param-name>
         <param-value>true</param-value>
     </context-param>
-    <!--<servlet-mapping>-->
-        <!--<servlet-name>default</servlet-name>-->
-        <!--<url-pattern>/resources/*</url-pattern>-->
-    <!--</servlet-mapping>-->
 </web-app>
 

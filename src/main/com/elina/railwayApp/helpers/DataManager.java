@@ -4,6 +4,7 @@ import elina.railwayApp.model.Schedule;
 import elina.railwayApp.model.TimeSchedule;
 import lombok.extern.log4j.Log4j;
 
+import java.io.IOException;
 import java.util.List;
 
 @Log4j
@@ -27,7 +28,7 @@ public class DataManager {
         return Converter.convertArrival(selectedItem, schedules);
     }
 
-    private void add(Long id) {
+    private void add(Long id) throws IOException {
         Schedule schedule = loader.getById(id);
         if (schedule != null) {
             schedules.add(schedule);
@@ -36,7 +37,7 @@ public class DataManager {
         log.info(LAST_CHANGE_MESSAGE);
     }
 
-    private void update(Long id) {
+    private void update(Long id) throws IOException {
         Schedule newSchedule = loader.getById(id);
         Schedule oldSchedule = schedules.stream().filter(x -> x.getId().equals(id)).findAny().get();
         if (newSchedule != null) {
@@ -56,7 +57,7 @@ public class DataManager {
         log.info(LAST_CHANGE_MESSAGE);
     }
 
-    public synchronized void changeState(String message) {
+    public synchronized void changeState(String message) throws IOException {
         final Long id = Long.valueOf(message.substring(message.indexOf("id=")).replace("id=", ""));
         if (message.contains("create"))
             add(id);
