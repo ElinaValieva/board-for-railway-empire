@@ -11,34 +11,11 @@ import java.util.stream.Collectors;
 public class Converter {
 
     /**
-     *
      * @param stationMain
      * @param schedules
      * @return
      */
     public static List<TimeSchedule> conventDeparture(String stationMain, List<Schedule> schedules) {
-        return schedules.stream()
-                .filter(schedule -> schedule.getStationDepartureName().equals(stationMain))
-                .map(x -> {
-                    TimeSchedule timeSchedule = new TimeSchedule();
-                    timeSchedule.setStation(x.getStationArrivalName());
-                    timeSchedule.setTrain(x.getTrainName());
-                    try {
-                        timeSchedule.setTime(Utils.parseToTime(x.getDateArrival()));
-                    } catch (ParseException e) {
-                        timeSchedule.setTime("not information");
-                    }
-                    return timeSchedule;
-                }).collect(Collectors.toList());
-    }
-
-    /**
-     *
-     * @param stationMain
-     * @param schedules
-     * @return
-     */
-    public static List<TimeSchedule> convertArrival(String stationMain, List<Schedule> schedules) {
         return schedules.stream()
                 .filter(schedule -> schedule.getStationArrivalName().equals(stationMain))
                 .map(x -> {
@@ -47,6 +24,27 @@ public class Converter {
                     timeSchedule.setTrain(x.getTrainName());
                     try {
                         timeSchedule.setTime(Utils.parseToTime(x.getDateDeparture()));
+                    } catch (ParseException e) {
+                        timeSchedule.setTime("not information");
+                    }
+                    return timeSchedule;
+                }).collect(Collectors.toList());
+    }
+
+    /**
+     * @param stationMain
+     * @param schedules
+     * @return
+     */
+    public static List<TimeSchedule> convertArrival(String stationMain, List<Schedule> schedules) {
+        return schedules.stream()
+                .filter(schedule -> schedule.getStationDepartureName().equals(stationMain))
+                .map(x -> {
+                    TimeSchedule timeSchedule = new TimeSchedule();
+                    timeSchedule.setStation(x.getStationArrivalName());
+                    timeSchedule.setTrain(x.getTrainName());
+                    try {
+                        timeSchedule.setTime(Utils.parseToTime(x.getDateArrival()));
                     } catch (ParseException e) {
                         timeSchedule.setTime("not information");
                     }
