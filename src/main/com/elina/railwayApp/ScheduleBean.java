@@ -44,24 +44,32 @@ public class ScheduleBean {
             lastChangesInfo = dataManager.getLastInfoChanges();
             log.info("update @schedule ... ");
             dataManager.resetStatusChanges();
+            /*
+            Update schedules for current station if it was updated in real time
+             */
+            if (dataManager.checkSelectedItem(selectedItem))
+                updateSchedules(selectedItem);
         }
     }
 
     public void setSelectedItem(String selectedItem) {
         this.selectedItem = selectedItem;
-        schedulesDeparture = dataManager.loadScheduleDeparture(selectedItem);
-        schedulesArrival = dataManager.loadScheduleArrival(selectedItem);
+        updateSchedules(selectedItem);
     }
 
     @PostConstruct
     private void init() throws IOException, TimeoutException {
         listener.start();
-        schedulesDeparture = dataManager.loadScheduleDeparture(selectedItem);
-        schedulesArrival = dataManager.loadScheduleArrival(selectedItem);
+        updateSchedules(selectedItem);
     }
 
     @PreDestroy
     private void destroy() throws IOException, TimeoutException {
         listener.stop();
+    }
+
+    private void updateSchedules(String selectedItem) {
+        schedulesDeparture = dataManager.loadScheduleDeparture(selectedItem);
+        schedulesArrival = dataManager.loadScheduleArrival(selectedItem);
     }
 }

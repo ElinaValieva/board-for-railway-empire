@@ -88,4 +88,8 @@ public class DataManager {
     public String getLastInfoChanges() {
         return LAST_CHANGE_MESSAGE;
     }
+
+    public boolean checkSelectedItem(String selectedItem) {
+        return LAST_CHANGE_MESSAGE.contains(selectedItem);
+    }
 }
