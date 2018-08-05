@@ -1,5 +1,16 @@
-body{
+body {
+    background: url(bg.png);
+}
+
+.main {
     width: 1300px;
     margin: 0 auto;
-    background: url(bg.png);
+}
+
+.info {
+    border: 2px orange;
+    background: #1b1e21;
+    font-size: x-large;
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-weight: bold;
 }

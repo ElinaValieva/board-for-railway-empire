@@ -12,18 +12,29 @@
     <h:outputStylesheet name="css/style.css"/>
 </h:head>
 <h:body>
-    <h:form>
-        <h:outputText id="last" value="#{scheduleBean.lastChangesInfo}" styleClass="text-warning"/>
-        <p:poll interval="10" listener="#{scheduleBean.update}" update="last"/>
-        <br/>
-        <p:selectOneMenu id="menu" value="#{scheduleBean.selectedItem}">
-            <f:selectItems value="#{scheduleBean.getStations()}"/>
-            <p:ajax update="resultDeparture"/>
-            <p:ajax update="resultArrival"/>
-        </p:selectOneMenu>
+    <h:form styleClass="text-warning info">
+        <h:graphicImage library="images" name="warning.png"/>
+        <h:outputText id="last" value="#{scheduleBean.lastChangesInfo}" style="margin-left: 30px"/>
+        <p:poll interval="5" listener="#{scheduleBean.update}" update="last"/>
     </h:form>
     <br/>
-    <div class="row">
+    <br/>
+    <h:form>
+        <div class="row main">
+            <div class="col-1">
+                <h:outputLabel styleClass="text-warning font-weight-bold text-xl-left">MAIN STATION: </h:outputLabel>
+            </div>
+            <div class="col">
+                <p:selectOneMenu id="menu" value="#{scheduleBean.selectedItem}" style="width: 300px">
+                    <f:selectItems value="#{scheduleBean.getStations()}"/>
+                    <p:ajax update="resultDeparture"/>
+                    <p:ajax update="resultArrival"/>
+                </p:selectOneMenu>
+            </div>
+        </div>
+    </h:form>
+    <br/>
+    <div class="row main">
         <div class="col">
             <h4 class="text-warning text-center">DEPARTURE</h4>
             <h:dataTable id="resultDeparture" value="#{scheduleBean.schedulesDeparture}" var="schedule"
