@@ -1,4 +1,4 @@
-package elina.railwayApp;
+package elina.railwayApp.helpers;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;

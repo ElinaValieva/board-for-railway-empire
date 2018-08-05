@@ -1,4 +1,4 @@
-package elina.railwayApp;
+package elina.railwayApp.helpers;
 
 import elina.railwayApp.model.Schedule;
 import elina.railwayApp.model.TimeSchedule;
