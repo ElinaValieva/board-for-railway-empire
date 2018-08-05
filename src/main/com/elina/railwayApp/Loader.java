@@ -16,14 +16,19 @@ import java.util.List;
 @Log4j
 public class Loader {
 
+    private static Loader loader;
 
-    public static List<Schedule> getSchedules() {
+    private ObjectMapper objectMapper = new ObjectMapper();
+    private Client client = new Client();
 
-        Client client = new Client();
-        ObjectMapper objectMapper = new ObjectMapper();
-        WebResource webResource = client.resource(Utils.URL_SCHEDULES);
-        ClientResponse clientResponse = webResource.accept(MediaType.APPLICATION_JSON).get(ClientResponse.class);
-        String response = clientResponse.getEntity(String.class);
+    public synchronized static Loader getInstance() {
+        if (loader == null)
+            loader = new Loader();
+        return loader;
+    }
+
+    public List<Schedule> getSchedules() {
+        String response = getResultResponse(Utils.URL_SCHEDULES);
         List<Schedule> schedules = null;
         try {
             schedules = objectMapper.readValue(response, new TypeReference<List<Schedule>>() {
@@ -34,12 +39,8 @@ public class Loader {
         return schedules;
     }
 
-    public static Schedule getById(Long id) {
-        Client client = new Client();
-        ObjectMapper objectMapper = new ObjectMapper();
-        WebResource webResource = client.resource(Utils.URL_SCHEDULE_BY_ID + id);
-        ClientResponse clientResponse = webResource.accept(MediaType.APPLICATION_JSON).get(ClientResponse.class);
-        String response = clientResponse.getEntity(String.class);
+    public Schedule getById(Long id) {
+        String response = getResultResponse(Utils.URL_SCHEDULE_BY_ID + id);
         Schedule schedule = null;
         try {
             log.info(response);
@@ -51,12 +52,8 @@ public class Loader {
         return schedule;
     }
 
-    public static List<String> getStations() {
-        Client client = new Client();
-        ObjectMapper objectMapper = new ObjectMapper();
-        WebResource webResource = client.resource(Utils.URL_STATIONS);
-        ClientResponse clientResponse = webResource.accept(MediaType.APPLICATION_JSON).get(ClientResponse.class);
-        String response = clientResponse.getEntity(String.class);
+    public List<String> getStations() {
+        String response = getResultResponse(Utils.URL_STATIONS);
         List<String> stations = null;
         try {
             stations = objectMapper.readValue(response, new TypeReference<List<String>>() {
@@ -65,5 +62,10 @@ public class Loader {
             log.error("ERROR, CAN'T LOAD STATIONS " + e.getMessage());
         }
         return stations;
+    }
+
+    private String getResultResponse(String URL) {
+        WebResource webResource = client.resource(URL);
+        return webResource.accept(MediaType.APPLICATION_JSON).get(ClientResponse.class).getEntity(String.class);
     }
 }
