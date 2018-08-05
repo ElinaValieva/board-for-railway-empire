@@ -30,7 +30,7 @@ public class DataManager {
         Schedule schedule = Loader.getById(id);
         if (schedule != null) {
             schedules.add(schedule);
-            LAST_CHANGE_MESSAGE = "ADD NEW schedule between " + schedule.getStationDepartureName() + " - " + schedule.getStationArrivalName();
+            LAST_CHANGE_MESSAGE = "Create new schedule between " + schedule.getStationDepartureName() + " - " + schedule.getStationArrivalName();
         }
         log.info(LAST_CHANGE_MESSAGE);
     }
@@ -41,7 +41,7 @@ public class DataManager {
         if (newSchedule != null) {
             schedules.remove(oldSchedule);
             schedules.add(newSchedule);
-            LAST_CHANGE_MESSAGE = "schedule between " + newSchedule.getStationDepartureName() + " - " + newSchedule.getStationArrivalName() + " was updated";
+            LAST_CHANGE_MESSAGE = "Schedule between " + newSchedule.getStationDepartureName() + " - " + newSchedule.getStationArrivalName() + " was updated";
         }
         log.info(LAST_CHANGE_MESSAGE);
     }
@@ -50,18 +50,19 @@ public class DataManager {
         Schedule schedule = schedules.stream().filter(x -> x.getId().equals(id)).findAny().get();
         if (schedule != null) {
             schedules.remove(schedule);
-            LAST_CHANGE_MESSAGE = "schedule between " + schedule.getStationDepartureName() + " - " + schedule.getStationArrivalName() + " was deleted";
+            LAST_CHANGE_MESSAGE = "Schedule between " + schedule.getStationDepartureName() + " - " + schedule.getStationArrivalName() + " was deleted";
         }
         log.info(LAST_CHANGE_MESSAGE);
     }
 
-    public void changeState(String message) {
+    public synchronized void changeState(String message) {
         final Long id = Long.valueOf(message.substring(message.indexOf("id=")).replace("id=", ""));
         if (message.contains("create"))
             add(id);
         else if (message.contains("update"))
             update(id);
         else delete(id);
+        upStatusChanges();
     }
 
     public static DataManager getInstance() {
