@@ -10,8 +10,9 @@ import java.util.List;
 public class DataManager {
 
     private static DataManager dataManager;
+    private Loader loader = Loader.getInstance();
 
-    public List<Schedule> schedules = Loader.getSchedules();
+    public List<Schedule> schedules = loader.getSchedules();
 
     private boolean CHANGE_VALUES_FLAG = false;
 
@@ -27,7 +28,7 @@ public class DataManager {
     }
 
     private void add(Long id) {
-        Schedule schedule = Loader.getById(id);
+        Schedule schedule = loader.getById(id);
         if (schedule != null) {
             schedules.add(schedule);
             LAST_CHANGE_MESSAGE = "Create new schedule between " + schedule.getStationDepartureName() + " - " + schedule.getStationArrivalName();
@@ -36,7 +37,7 @@ public class DataManager {
     }
 
     private void update(Long id) {
-        Schedule newSchedule = Loader.getById(id);
+        Schedule newSchedule = loader.getById(id);
         Schedule oldSchedule = schedules.stream().filter(x -> x.getId().equals(id)).findAny().get();
         if (newSchedule != null) {
             schedules.remove(oldSchedule);
@@ -65,7 +66,7 @@ public class DataManager {
         upStatusChanges();
     }
 
-    public static DataManager getInstance() {
+    public synchronized static DataManager getInstance() {
         if (dataManager == null)
             dataManager = new DataManager();
         return dataManager;

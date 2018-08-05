@@ -20,6 +20,7 @@ public class ScheduleBean {
 
     private DataManager dataManager = DataManager.getInstance();
     private Listener listener = new Listener();
+    private Loader loader = Loader.getInstance();
 
     @Getter
     @Setter
@@ -30,16 +31,13 @@ public class ScheduleBean {
     private List<TimeSchedule> schedulesArrival;
 
     @Getter
-    private List<String> stations = Loader.getStations();
+    private List<String> stations = loader.getStations();
 
     @Getter
     private String selectedItem = "Saint Petersburg";
 
-    private String lastChangesInfo = " changes ";
-
-    public String getLastChangesInfo() {
-        return lastChangesInfo;
-    }
+    @Getter
+    private String lastChangesInfo = "No changes ... ";
 
     public void update() {
         if (dataManager.getStatusChanges()) {

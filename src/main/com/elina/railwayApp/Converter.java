@@ -53,5 +53,4 @@ public class Converter {
                     return timeSchedule;
                 }).collect(Collectors.toList());
     }
-
 }

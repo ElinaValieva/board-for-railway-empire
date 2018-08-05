@@ -32,7 +32,6 @@ public class Listener {
                 if (message.contains("create") || message.contains("delete") || message.contains("update")) {
                     log.info(message);
                     dataManager.changeState(message);
-                    dataManager.upStatusChanges();
                 }
             }
         };
