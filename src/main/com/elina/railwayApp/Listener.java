@@ -31,8 +31,7 @@ public class Listener {
                 log.info(" [x] Received '" + message + "'");
                 if (message.contains("create") || message.contains("delete") || message.contains("update")) {
                     log.info(message);
-                    dataManager.setLastInfoChanges(message);
-                    dataManager.changeState();
+                    dataManager.changeState(message);
                     dataManager.upStatusChanges();
                 }
             }

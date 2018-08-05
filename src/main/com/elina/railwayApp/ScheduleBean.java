@@ -1,6 +1,5 @@
 package elina.railwayApp;
 
-import elina.railwayApp.model.Schedule;
 import elina.railwayApp.model.TimeSchedule;
 import lombok.Getter;
 import lombok.Setter;
