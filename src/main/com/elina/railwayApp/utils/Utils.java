@@ -17,7 +17,7 @@ public class Utils {
     public static final String URL_SCHEDULE_BY_ID = "http://localhost:8000/schedule/get/";
 
 
-    public static String parseToTime(String date) throws ParseException {
+    public static String parseToTime(String date) {
         Date dateToday = parseToDateTime(date);
         SimpleDateFormat localDateFormat = new SimpleDateFormat("HH:mm:ss");
         return localDateFormat.format(dateToday);
@@ -30,9 +30,14 @@ public class Utils {
         return parseToDate(df.format(date));
     }
 
-    public static Date parseToDateTime(String date) throws ParseException {
+    public static Date parseToDateTime(String date) {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        return format.parse(date);
+        try {
+            return format.parse(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return new Date();
     }
 
     public static Date parseToDate(String date) throws ParseException {
