@@ -57,7 +57,7 @@ public class DataManager {
         log.info(LAST_CHANGE_MESSAGE);
     }
 
-    public synchronized void changeState(String message) throws IOException {
+    public void changeState(String message) throws IOException {
         final Long id = Long.valueOf(message.substring(message.indexOf("id=")).replace("id=", ""));
         if (message.contains("create"))
             add(id);
@@ -67,7 +67,7 @@ public class DataManager {
         upStatusChanges();
     }
 
-    public synchronized static DataManager getInstance() {
+    public static DataManager getInstance() {
         if (dataManager == null)
             dataManager = new DataManager();
         return dataManager;

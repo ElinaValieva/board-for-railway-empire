@@ -4,7 +4,6 @@ import elina.railwayApp.model.Schedule;
 import elina.railwayApp.model.TimeSchedule;
 import elina.railwayApp.utils.Utils;
 
-import java.text.ParseException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -22,11 +21,7 @@ public class Converter {
                     TimeSchedule timeSchedule = new TimeSchedule();
                     timeSchedule.setStation(x.getStationDepartureName());
                     timeSchedule.setTrain(x.getTrainName());
-                    try {
-                        timeSchedule.setTime(Utils.parseToTime(x.getDateDeparture()));
-                    } catch (ParseException e) {
-                        timeSchedule.setTime("not information");
-                    }
+                    timeSchedule.setTime(Utils.parseToTime(x.getDateDeparture()));
                     return timeSchedule;
                 }).collect(Collectors.toList());
     }
@@ -43,11 +38,7 @@ public class Converter {
                     TimeSchedule timeSchedule = new TimeSchedule();
                     timeSchedule.setStation(x.getStationArrivalName());
                     timeSchedule.setTrain(x.getTrainName());
-                    try {
-                        timeSchedule.setTime(Utils.parseToTime(x.getDateArrival()));
-                    } catch (ParseException e) {
-                        timeSchedule.setTime("not information");
-                    }
+                    timeSchedule.setTime(Utils.parseToTime(x.getDateArrival()));
                     return timeSchedule;
                 }).collect(Collectors.toList());
     }
