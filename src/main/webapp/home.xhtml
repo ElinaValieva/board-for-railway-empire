@@ -14,7 +14,7 @@
 <h:body>
     <h:form styleClass="text-warning info">
         <h:graphicImage library="images" name="warning.png"/>
-        <h:outputText id="last" value="#{scheduleBean.lastChangesInfo}" style="margin-left: 30px"/>
+        <h:outputText id="last" value="#{scheduleBean.lastChangedInfo}" style="margin-left: 30px"/>
         <p:poll interval="5" listener="#{scheduleBean.update}" update="last"/>
     </h:form>
     <br/>
@@ -26,7 +26,7 @@
             </div>
             <div class="col">
                 <p:selectOneMenu id="menu" value="#{scheduleBean.selectedItem}" style="width: 300px">
-                    <f:selectItems value="#{scheduleBean.getStations()}"/>
+                    <f:selectItems value="#{scheduleBean.stations}"/>
                     <p:ajax update="resultDeparture"/>
                     <p:ajax update="resultArrival"/>
                 </p:selectOneMenu>
@@ -37,7 +37,7 @@
     <div class="row main">
         <div class="col">
             <h4 class="text-warning text-center">DEPARTURE</h4>
-            <h:dataTable id="resultDeparture" value="#{scheduleBean.schedulesDeparture}" var="schedule"
+            <h:dataTable id="resultDeparture" value="#{scheduleBean.scheduleDeparture}" var="schedule"
                          styleClass="table table-dark text-warning"
                          style="margin-left: 2%">
                 <h:column>
@@ -66,7 +66,7 @@
         <div class="col-1"></div>
         <div class="col">
             <h4 class="text-warning text-center">ARRIVAL</h4>
-            <h:dataTable id="resultArrival" value="#{scheduleBean.schedulesArrival}" var="schedule"
+            <h:dataTable id="resultArrival" value="#{scheduleBean.scheduleArrival}" var="schedule"
                          styleClass="table table-dark text-warning"
                          style="margin-right: 2%">
                 <h:column>

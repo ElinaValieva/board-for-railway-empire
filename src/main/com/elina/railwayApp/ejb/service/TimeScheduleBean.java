@@ -1,4 +1,4 @@
-package elina.railwayApp;
+package elina.railwayApp.ejb.service;
 
 import elina.railwayApp.helpers.DataManager;
 import elina.railwayApp.helpers.Listener;
@@ -11,17 +11,13 @@ import lombok.extern.log4j.Log4j;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.ejb.Singleton;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
 import java.io.IOException;
 import java.util.List;
 import java.util.concurrent.TimeoutException;
 
-@ManagedBean
 @Singleton
-@ViewScoped
 @Log4j
-public class ScheduleBean {
+public class TimeScheduleBean {
 
     private DataManager dataManager = DataManager.getInstance();
     private Listener listener = new Listener();
