@@ -9,10 +9,7 @@
 - JSF 2.0
 
 
-## Build and deploy
-- **Database Configuration**
-
 ## Additional applications
 ###  🚇  [Railway Empire](https://github.com/ElinaValieva/railway-empire "Railway Empire")
 ###  🚇  [Railway Empire Client](https://github.com/ElinaValieva/railway-empire-client "Railway Empire Client")
-### :book:  [Technical Description Document](http://tsd "Technical description document")
+### :book:  [Technical Description Document](https://docs.google.com/document/d/1mAfonnv3jGGsdL8SuQSIqbCStQ-zN2_L4fsDTbzHBiE/edit "Technical description document")
