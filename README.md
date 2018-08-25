@@ -8,7 +8,12 @@
 - Rabbit MQ
 - JSF 2.0
 
+## Build and deploy
+### [Configure WildFly](http://wildfly.org/downloads/)
 
+### Project Configuration
+    mvn :wildfly deploy
+    mvc clean install
 
 ## Additional applications and document
 ###  🚇  [Railway Empire](https://github.com/ElinaValieva/railway-empire "Railway Empire")
