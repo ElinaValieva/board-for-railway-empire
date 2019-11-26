@@ -1,19 +1,18 @@
 # 🕑 BOARD TIMESCHEDULE FOR RAILWAY EMPIRE
  
- > WEB APPLICATION FOR RAILWAY EMPIRE COMPANY FOR SHOWING TIMESCHEDULE FOR TODAY.
+ > WEB APPLICATION FOR RAILWAY EMPIRE FOR SHOWING TIMESCHEDULE FOR TODAY.
 
 ## Technologies
 - WildFly 10
-- EJB
+- EJB, JSF
 - Rabbit MQ
-- JSF 2.0
 
 ## Build and deploy
 ### [Configure WildFly](http://wildfly.org/downloads/)
 
 ### Project Configuration
     mvn :wildfly deploy
-    mvc clean install
+    mvn clean install
 
 ## Additional applications and document
 ###  🚇  [Railway Empire](https://github.com/ElinaValieva/railway-empire "Railway Empire")
